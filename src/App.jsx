@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function NameList() {
   const [list, setList] = useState(["John", "Jane", "Joe"]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(() => "Jack");
 
   const onAddName = () => {
     setList([...list, name]);
