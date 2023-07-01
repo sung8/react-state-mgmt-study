@@ -1,45 +1,26 @@
-import { useState } from "react";
-
-function NameList() {
-  const [list, setList] = useState(["John", "Jane", "Joe"]);
-  const [name, setName] = useState(() => "Jack");
-
-  const onAddName = () => {
-    setList([...list, name]);
-    setName("");
-  };
-
-  return (
-    <div>
-      <ul>
-        {list.map((name) => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      <button onClick={onAddName}>Add Name</button>
-    </div>
-  );
-}
-
-function Counter() {
-  const [count, setCount] = useState(10);
-
-  function addOne() {
-    setCount(count + 1);
-  }
-  return (
-    <div className="App">
-      <button onClick={addOne}>Count = {count}</button>
-    </div>
-  );
-}
+import { useReducer } from "react";
 
 function App() {
+  const [state, dispatch] = useReducer(
+    (state, action) => {
+      switch (action.type) {
+        case "SET_NAME":
+          return { ...state, name: action.payload };
+      }
+    },
+    {
+      names: [],
+      name: ""
+    }
+  );
   return (
-    <div>
-      <Counter />
-      <NameList />
+    <div className="App">
+      <input
+        type="text"
+        value={state.name}
+        onChange={(e) => dispatch({ type: "SET_NAME", payload: e.target.value })}
+      />
+      <div>Name = {state.name}</div>
     </div>
   );
 }
