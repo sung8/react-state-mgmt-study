@@ -1,6 +1,33 @@
 import { useReducer } from "react";
 
-function App() {
+function UserForm() {
+  const [state, dispatch] = useReducer(
+    (state, action) => ({
+      ...state,
+      ...action
+    }),
+    {
+      first: "",
+      last: ""
+    }
+  );
+  return (
+    <div>
+      <input
+        type="text"
+        value={state.first}
+        onChange={(e) => dispatch({ first: e.target.value })}
+      />
+      <input type="text" value={state.last} onChange={(e) => dispatch({ last: e.target.value })} />
+      <div>
+        First: {state.first}
+        <div>Last: {state.last}</div>
+      </div>
+    </div>
+  );
+}
+
+function NameList() {
   const [state, dispatch] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -28,6 +55,15 @@ function App() {
         onChange={(e) => dispatch({ type: "SET_NAME", payload: e.target.value })}
       />
       <button onClick={() => dispatch({ type: "ADD_NAME" })}>Add Name</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <UserForm />
+      <NameList />
     </div>
   );
 }
