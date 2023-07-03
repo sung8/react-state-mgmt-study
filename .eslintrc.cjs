@@ -1,15 +1,10 @@
 module.exports = {
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-  ],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  extends: ['react-app', 'prettier', 'plugin:prettier/recommended'],
+  plugins: ['prettier'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
+    'react/jsx-first-prop-new-line': [2, 'multiline'],
+    'react/jsx-max-props-per-line': [2, { maximum: 1, when: 'multiline' }],
+    'react/jsx-indent-props': [2, 2],
+    'react/jsx-closing-bracket-location': [2, 'tag-aligned'],
   },
-}
+};
