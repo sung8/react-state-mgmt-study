@@ -1,11 +1,11 @@
 import { useState, useCallback, useMemo } from 'react';
 
-function SortedList({ list }) {
+function SortedList({ list, sortFunc }) {
   console.log('SortedList render');
   const sortedList = useMemo(() => {
     console.log('Running sort');
-    return [...list].sort();
-  }, [list]);
+    return [...list].sort(sortFunc);
+  }, [list, sortFunc]);
   return <div>{sortedList.join(', ')}</div>;
 }
 
@@ -21,14 +21,15 @@ function App() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
 
-  const countTotalBad = useMemo(() => count1 + count2, [count1 + count2]);
   const countTotalBetter = count1 + count2;
+
+  const sortFunc = (a, b) => a.localeCompare(b) * -1;
 
   return (
     <div className="App">
       <div>Total: {total}</div>
       <div>Names: {names.join(', ')}</div>
-      <SortedList list={names} />
+      <SortedList list={names} sortFunc={sortFunc} />
       <button onClick={() => setCount1(count1 + 1)}>Count 1: {count1}</button>
       <button onClick={() => setCount2(count2 + 1)}>Count 2: {count2}</button>
       <div>Total: {countTotalBetter}</div>
