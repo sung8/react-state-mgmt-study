@@ -23,7 +23,7 @@ function App() {
 
   const countTotalBetter = count1 + count2;
 
-  const sortFunc = (a, b) => a.localeCompare(b) * -1;
+  const sortFunc = useCallback((a, b) => a.localeCompare(b) * -1, []);
 
   return (
     <div className="App">
