@@ -9,22 +9,20 @@ function App() {
       .then((data) => setNames(data));
   }, []);
 
-  const [selectedName, setSelectedName] = useState(null);
-
   const [selectedNameDetails, setSelectedNameDetails] = useState(null);
 
-  useEffect(() => {
-    fetch(`/${selectedName}.json`)
+  const onSelectedName = (name) => {
+    fetch(`/${name}.json`)
       .then((res) => res.json())
       .then((data) => setSelectedNameDetails(data));
-  }, [selectedName]);
+  };
 
   return (
     <div className="App">
       <div>Names: {names.join(', ')}</div>
       <div>
         {names.map((name) => (
-          <button onClick={() => setSelectedName(name)}>{name}</button>
+          <button onClick={() => onSelectedName(name)}>{name}</button>
         ))}
       </div>
       <div>{JSON.stringify(selectedNameDetails)}</div>
