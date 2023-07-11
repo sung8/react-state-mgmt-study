@@ -7,9 +7,22 @@ function App() {
     inputRef.current.focus();
   }, []);
 
+  const [names, setNames] = useState([]);
+
+  const onAddName = () => {
+    setNames([...names, inputRef.current.value]);
+    inputRef.current.value = '';
+  };
+
   return (
-    <div className="App">
+    <div>
+      <div>
+        {names.map((name) => (
+          <div key={name}>{name}</div>
+        ))}
+      </div>
       <input type="text" ref={inputRef} />
+      <button onClick={onAddName}>Add Name</button>
     </div>
   );
 }
