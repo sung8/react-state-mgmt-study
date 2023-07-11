@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 function App() {
   const inputRef = useRef(null);
@@ -7,10 +7,20 @@ function App() {
     inputRef.current.focus();
   }, []);
 
-  const [names, setNames] = useState([]);
+  const idRef = useRef(1);
+  const [names, setNames] = useState([
+    { id: idRef.current++, name: 'John' },
+    { id: idRef.current++, name: 'Jane' },
+  ]);
 
   const onAddName = () => {
-    setNames([...names, inputRef.current.value]);
+    setNames([
+      ...names,
+      {
+        id: idRef.current++,
+        name: inputRef.current.value,
+      },
+    ]);
     inputRef.current.value = '';
   };
 
@@ -18,7 +28,9 @@ function App() {
     <div>
       <div>
         {names.map((name) => (
-          <div key={name}>{name}</div>
+          <div key={name.name}>
+            {name.id} - {name.name}
+          </div>
         ))}
       </div>
       <input type="text" ref={inputRef} />
